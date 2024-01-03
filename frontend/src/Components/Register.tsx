@@ -35,34 +35,50 @@ const Register = () => {
   };
 
   const right = {
-    width: "62%",
+    width: { xs: "100%", md: "62%" },
+    height: { xs: "45%", md: "100%" },
     backgroundImage: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
+    backgroundSize: { xs: "45%", md: "auto" },
+    border: "1px solid red",
+  };
+
+  const left = {
+    width: { xs: "100%", md: "38%" },
+    height:"50vh",
+    alignItems: "center",
+    border: "1px solid red",
+    margin: { xs: "20px 0 0 0 ", md:"auto " },
+    padding:{xs:"35px 0 0 0", md:"0"},
+    borderRadius:{xs:"30px 30px 0 0", md:"0"},
+    backgroundImage:
+      {xs:"linear-gradient(135deg, #423cb4 0, #c06ac5, 100%)", md:"none"},
+    color:{xs:"white",md:"none"}  
   };
 
     const heading= {
       textAlign: "center",
-      marginTop: "9%",
-      color: "white",
+      marginTop: { xs: "4%", md: "9%" },
+    color: { xs: "black", md: "white" },
       fontSize:"35px",
       fontWeight:"600"
     }
 
     const subhead={
-        textAlign: "center",
-          color: "white",
-          fontSize:"17px",
-          fontWeight:"500",
-          marginTop:"5px"
+      textAlign: "center",
+      color: { xs: "black", md: "white" },
+      fontSize: "17px",
+      fontWeight: "500",
+      marginTop: { xs: "0", md: "5px" },
     }
     
     const sub={
-        textAlign: "center",
-          color: "white",
-          fontSize:"19px",
-          fontWeight:"400",
-          marginTop:"10px"
+      textAlign: "center",
+      color: { xs: "black", md: "white" },
+      fontSize: "19px",
+      fontWeight: "500",
+      marginTop: { xs: "3px", md: "10px" },
     }
 
   return (
@@ -73,7 +89,7 @@ const Register = () => {
           <Typography sx={subhead}>Use every Penny Wisely</Typography>
           <Typography sx={sub}>Register Now!</Typography>
         </Box>
-        <Box sx={{ width: "38%", alignItems: "center", margin: "auto" }}>
+        <Box sx={left}>
           <FormControl sx={{ width: "90%" }}>
             <FormControl>
               <TextField
