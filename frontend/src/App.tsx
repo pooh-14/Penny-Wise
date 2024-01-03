@@ -1,18 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import { Home, Login } from '@mui/icons-material';
+import { Route, Routes } from 'react-router';
 import HomePage from './Components/HomePage';
 import Register from './Components/Register';
+import Login from './Components/Login';
 
 function App() {
-  return (
+  return (     
     <div className="App">
       <Routes>
         <Route path='/' element={<HomePage/>}/>
-        <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
       </Routes>
     </div>
   );
