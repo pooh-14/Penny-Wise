@@ -12,7 +12,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router";
-import xsBgImg from "../Images/loginimagetwo.jpg";
+import xsBgImg from "../Images/budget-planning.png";
+import smBgImg from "../Images/ipad.png";
 
 const Login = () => {
   const router = useNavigate();
@@ -40,52 +41,51 @@ const Login = () => {
 
   const right = {
     width: { xs: "100%", md: "62%" },
-    height: { xs: "45%", md: "100%" },
+    height: { xs: "50%", md: "100%" },
     backgroundImage: {
-      xs: `url(${xsBgImg})`,
+      xs: `url(${xsBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
+      sm:`url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
       md: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
     },
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
-    backgroundSize: { xs: "45%", md: "auto" },
-    border: "1px solid red",
+    // backgroundSize: { xs: "small", md: "auto" },
+    // border: "1px solid red",
+    borderRadius:{xs:"0 0 20px 20px", md:"0"},
   };
 
   const left = {
     width: { xs: "100%", md: "38%" },
     height:"50vh",
     alignItems: "center",
-    border: "1px solid red",
-    margin: { xs: "20px 0 0 0 ", md:"auto " },
+    // border: "1px solid red",
+    margin: { xs: "15px 0 0 0 ", md:"auto " },
     padding:{xs:"35px 0 0 0", md:"0"},
-    borderRadius:{xs:"30px 30px 0 0", md:"0"},
-    backgroundImage:
-      {xs:"linear-gradient(135deg, #423cb4 0, #c06ac5, 100%)", md:"none"},
-    color:{xs:"white",md:"none"}  
   };
 
   const heading = {
     textAlign: "center",
     marginTop: { xs: "4%", md: "9%" },
-    color: { xs: "black", md: "white" },
-    fontSize: "35px",
+    color: "white",
+    fontSize: {xs:"26px",sm:"40px", md:"35px"},
     fontWeight: "600",
   };
 
   const subhead = {
     textAlign: "center",
-    color: { xs: "black", md: "white" },
-    fontSize: "17px",
+    color: "white",
+    fontSize:  {xs:"14px",sm:"22px", md:"18px"},
     fontWeight: "500",
-    marginTop: { xs: "0", md: "5px" },
+    marginTop: { xs: "1.2%",sm:"6px", md: "5px" },
+    // display:{xs:"none", md:"block"}
   };
 
   const sub = {
     textAlign: "center",
-    color: { xs: "black", md: "white" },
-    fontSize: "19px",
+    color: "white",
+    fontSize: {xs:"17px",sm:"25px",md:"19px"},
     fontWeight: "500",
-    marginTop: { xs: "3px", md: "10px" },
+    marginTop: { xs: "1.1%",sm:"11px", md: "10px" },
   };
 
   return (
@@ -102,13 +102,18 @@ const Login = () => {
               <TextField
                 label="Email"
                 variant="outlined"
+                placeholder="Enter Email"
                 sx={{ marginBottom: "30px" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <EmailIcon />
+                      <EmailIcon sx={{fontSize:{sm:"30px",md:"23px"}}}/>
                     </InputAdornment>
-                  ),
+                  ), 
+                  sx:{
+                    fontSize:{sm:"20px",md:"16px"},
+                    height:{sm:"70px",md:"55px"}
+                  }
                 }}
               />
             </FormControl>
@@ -116,27 +121,32 @@ const Login = () => {
               <TextField
                 label="Password"
                 variant="outlined"
+                placeholder="Enter Password"
                 sx={{ marginBottom: "30px" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <KeyIcon />
+                      <KeyIcon sx={{fontSize:{sm:"30px",md:"23px"}}}/>
                     </InputAdornment>
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      <VisibilityIcon />
+                      <VisibilityIcon sx={{fontSize:{sm:"30px",md:"23px"}}}/>
                     </InputAdornment>
-                  ),
+                  ), 
+                  sx:{
+                    fontSize:{sm:"20px",md:"16px"},
+                    height:{sm:"70px",md:"55px"}
+                  }
                 }}
               />
             </FormControl>
-            <Button variant="contained">Sign In</Button>
+            <Button variant="contained" sx={{height:{sm:"50px",md:"35px" },fontSize:{sm:"20px", md:"15px"}}}>Sign In</Button>
             <Typography
               variant="body2"
-              sx={{ marginTop: "15px", fontSize: "12px" }}
+              sx={{ marginTop: {xs:"25px",md:"15px"}, fontSize: {sm:"19px",md:"12px"}, marginBottom:{xs:"25px", md:"0"} }}
             >
-              New User? <b>Sign Up</b>
+              New User? <b onClick={()=>router("/register")}>Sign Up</b>
             </Typography>
           </FormControl>
         </Box>
