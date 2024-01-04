@@ -10,66 +10,76 @@ import {
 import React from "react";
 import AccountBalanceWalletRoundedIcon from "@mui/icons-material/AccountBalanceWalletRounded";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
+import logo from '../Images/logoone.webp'
 
 const SideBar = () => {
   const drawer = {
     "& .MuiPaper-root": {
-      width: "259px",
+      width: "265px",
     justifyContent:"space-between",
-    backgroundColor:"yellow"
+    backgroundColor:"yellow",
+    color:"white"
     },
   };
 
   const menuKaFirstList = [
     {
       text: "Dashboard",
-      icon: "hii",
+      icon: <DashboardOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
     {
-      text: "Income",
-      icon: "hii",
+      text: "Income and Savings",
+      icon: <VolunteerActivismOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
     {
       text: "Expense",
-      icon: "hii",
+      icon: <PaidOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
     {
       text: "Transactions",
-      icon: "hii",
+      icon: <PaymentsOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
     {
-      text: "Savings",
-      icon: "hii",
+      text: "Accounts",
+      icon: <AccountBalanceOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
   ];
 
   const menuKaSecondList = [
     {
       text: "My Profile",
-      icon: "hii",
+      icon: <AccountCircleOutlinedIcon sx={{color:"white",fontSize:"28px"}} />,
     },
     {
       text: "Help & Support",
-      icon: "hii",
+      icon: <HelpOutlineOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
     {
       text: "Logout",
-      icon: "Hi",
+      icon: <LogoutOutlinedIcon sx={{color:"white",fontSize:"28px"}}/>,
     },
   ];
   
   return (
     <Box>
       <Drawer variant="permanent" sx={drawer}>
-        <Box sx={{ display: "flex", border:"1px solid red" }}>
-          <AccountBalanceWalletRoundedIcon />
-          <Typography>Penny-Wise</Typography>
-          <ChevronLeftIcon />
+        <Box sx={{ display: "flex",  justifyContent:"space-between",padding:"10px 60px 0 21px", alignItems:"center" }}>
+          <img style={{width:"45px", height:"45px", borderRadius:"50px"}} src={logo}/>
+          <Typography sx={{fontSize:"22px", color:"white", fontWeight:"600"}}>Penny-Wise</Typography>
+          <ChevronLeftIcon sx={{color:"white",fontSize:"32px", display:{xs:"block", md:"none"}}}/>
         </Box>
-        <Box sx={{border:"1px solid red" }}>
-        <List>
+        <Box sx={{marginTop:"-80px" }}>
+        <List sx={{padding:"10px"}}>
         {menuKaFirstList?.map((menuone,index)=> (
-          <ListItemButton key={index}>
+          <ListItemButton key={index} sx={{height:"60px"}}>
           <ListItemIcon>{menuone.icon}</ListItemIcon>
           <ListItemText>{menuone.text}</ListItemText>
           </ListItemButton>
@@ -77,10 +87,10 @@ const SideBar = () => {
         </List>
         </Box>
         
-        <Box sx={{border:"1px solid red" }}>
-        <List>
+        <Box >
+        <List sx={{padding:"10px"}}>
         {menuKaSecondList?.map((menutwo,index)=> (
-          <ListItemButton key={index}>
+          <ListItemButton key={index} sx={{height:"60px"}}>
           <ListItemIcon>{menutwo.icon}</ListItemIcon>
           <ListItemText>{menutwo.text}</ListItemText>
           </ListItemButton>
