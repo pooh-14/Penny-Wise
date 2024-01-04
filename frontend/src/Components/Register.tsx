@@ -20,7 +20,7 @@ const Register = () => {
   const router = useNavigate();
   const outer = {
     width: "100%",
-    height: "100vh",
+    height: {xs:"135vh",sm:"110vh",md:"100vh"},
     backgroundImage: "linear-gradient(to bottom right, #423cb4 , #c06ac5, #423cb4)",
     border: "1px solid black",
     fontFamily: "'Poppins', sans-serif",
@@ -28,7 +28,7 @@ const Register = () => {
 
   const inner = {
     width: { xs: "100%", md: "80%" },
-    height: { xs: "135vh", md: "80vh" },
+    height: { xs:"135vh",md:"80vh" },
     backgroundColor: "white",
     margin: "auto",
     marginTop: { xs: "0", md: "50px" },
@@ -39,11 +39,11 @@ const Register = () => {
 
   const right = {
     width: { xs: "100%", md: "62%" },
-    height: { xs: "40%", md: "100%" },
+    height: { xs: "40%",sm: "36%", md: "100%" },
     backgroundImage: {
       xs: `url(${xsBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
-      sm:`url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
-      md: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
+      sm: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
+      md:`url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
     },
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
@@ -54,11 +54,10 @@ const Register = () => {
 
   const left = {
     width: { xs: "100%", md: "38%" },
-    height:"50vh",
+    height:"50vh", 
     alignItems: "center",
     // border: "1px solid red",
-    margin: { xs: "15px 0 0 0 ", md:"auto " },
-    padding:{xs:"35px 0 0 0", md:"0"}, 
+    padding:{xs:"35px 0 0 0", md:"45px 0 0 0"}, 
   };
 
     const heading= {
@@ -184,7 +183,7 @@ const Register = () => {
             </FormControl>
             <Button variant="contained" sx={{height:{sm:"50px",md:"35px" },fontSize:{sm:"20px", md:"15px"}}}>Sign Up</Button>
             <Typography
-              sx={{ marginTop: {xs:"25px",md:"15px"}, fontSize:{sm:"19px",md:"12px"}, marginBottom:{xs:"25px", md:"0"} }}
+              sx={{ marginTop: {xs:"25px",md:"15px"}, fontSize:{sm:"19px",md:"12px"} }}
             >
               Already Registered? <b onClick={()=>router("/login")}>Sign In</b>
             </Typography>

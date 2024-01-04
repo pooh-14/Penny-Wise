@@ -44,8 +44,8 @@ const Login = () => {
     height: { xs: "50%", md: "100%" },
     backgroundImage: {
       xs: `url(${xsBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
-      sm:`url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
-      md: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
+      sm: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
+      md:`url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
     },
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
@@ -144,7 +144,7 @@ const Login = () => {
             <Button variant="contained" sx={{height:{sm:"50px",md:"35px" },fontSize:{sm:"20px", md:"15px"}}}>Sign In</Button>
             <Typography
               variant="body2"
-              sx={{ marginTop: {xs:"25px",md:"15px"}, fontSize: {sm:"19px",md:"12px"}, marginBottom:{xs:"25px", md:"0"} }}
+              sx={{ marginTop: {xs:"25px",md:"15px"}, fontSize: {sm:"19px",md:"12px"}, }}
             >
               New User? <b onClick={()=>router("/register")}>Sign Up</b>
             </Typography>
