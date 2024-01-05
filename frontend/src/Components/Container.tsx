@@ -1,25 +1,46 @@
-import React from 'react'
-import App from '../App'
-import { Box } from '@mui/material'
-import Navbar from './Navbar'
-import SideBar from './SideBar'
+import { useContext } from "react";
+import App from "../App";
+import { Box } from "@mui/material";
+import Navbar from "./Navbar";
+import SideBar from "./SideBar";
+import { AuthContext } from "./Context/AuthContext";
 
 const Container = () => {
-  return (
-    <Box sx={{display:"flex",width:"100%", height:"100vh"}}>
-        <Box sx={{width:"320px", border:"1px solid black"}}>
-            <SideBar/>
-        </Box>
-        <Box sx={{width:"100%", border:"1px solid red"}}>
-            <Box sx={{width:"100%", border:"1px solid blue", height:"60px"}}>
-                <Navbar/>
-            </Box>
-            <Box>
-                <App/>
-            </Box>
-        </Box>
-    </Box>
-  )
-}
+    
+  const {  menu,setMenu } = useContext(AuthContext);
 
-export default Container
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "100vh",
+        backgroundColor: "#111111",
+        color: "white",
+      }}
+    >
+      <Box >
+        {menu ? 
+        <Box sx={{ width: "65px"}}>
+        <SideBar/>
+        </Box>
+        :
+        <Box sx={{ width: "240px" }}>
+        <SideBar/>
+        </Box>}
+      </Box>
+      <Box sx={{ width: "100%" }}>
+        <Box
+          sx={{ width: "100%", height: "60px", position: "sticky", top: "0" }}
+        >
+          <Navbar />
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <App />
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default Container;

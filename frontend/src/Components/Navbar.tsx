@@ -1,17 +1,22 @@
 import { AppBar, Avatar, Badge, Box, IconButton, Stack, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import { AuthContext } from './Context/AuthContext';
 
 const Navbar = () => {
+
+  const { toggle ,menu} = useContext(AuthContext);
+  
+
   return (
     <>
-    <AppBar sx={{height: 60,justifyContent: "center",borderBottom:"1px solid #e4e4e5", zIndex:'1'}} color="success" position="sticky" elevation={0}>
+    <AppBar sx={{height: 60,justifyContent: "center", zIndex:'1', backgroundColor:"black",top:"0"}} position="sticky"  elevation={5}>
         <Toolbar>
-        <MenuIcon fontSize="large" color="inherit"/>
+        <MenuIcon fontSize="large" color="inherit" onClick={toggle}/>
         <Stack sx={{ marginLeft: "auto"}} spacing={2} direction="row">
             <IconButton size="large" >
-              <Badge badgeContent={3} color="primary">
+              <Badge variant='dot' color="error">
                 <NotificationsNoneOutlinedIcon sx={{color:"white"}}/>
               </Badge>
             </IconButton>
