@@ -14,6 +14,8 @@ import VolunteerActivismTwoToneIcon from "@mui/icons-material/VolunteerActivismT
 import PaidTwoToneIcon from "@mui/icons-material/PaidTwoTone";
 import AccountBalanceWalletTwoToneIcon from "@mui/icons-material/AccountBalanceWalletTwoTone";
 import LineChart from "./LineChart";
+import PieChart from "./PieChart";
+import Expenses from "./Expenses";
 
 const HomePage = () => {
   const pprbox = {
@@ -65,9 +67,9 @@ const HomePage = () => {
   };
 
   return (
-    <Box sx={{ width: "100%", height: "100vh" }}>
-      <Box sx={{ width: "95%", margin: "auto", paddingTop: "25px" }}>
-        <Box>
+    <Box sx={{ width: "100%",height:"200%"}}>
+      <Box sx={{ width: "100%",height:"100%", margin: "auto", paddingTop: "25px" }}>
+        <Box sx={{ width: "95%" ,margin: "auto",}}>
           <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
             <Grid item xs={12} sm={6} md={3}>
               <Paper
@@ -146,7 +148,7 @@ const HomePage = () => {
             </Grid>
           </Grid>
         </Box>
-        <Box sx={{ marginTop: "25px" }}>
+        <Box sx={{ width: "95%",margin: "auto" , marginTop: "25px"}}>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <Paper
@@ -173,33 +175,16 @@ const HomePage = () => {
                   color: "white",
                 }}
               >
-                <Box>pie-chart- category</Box>
+                <Box><PieChart/></Box>
               </Paper>
             </Grid>
           </Grid>
         </Box>
         <Box
-          sx={{ border: "1px solid blue", marginTop: "25px", color: "white" }}
-        >
-          <TableContainer>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ color: "white" }}>Sr No.</TableCell>
-                <TableCell sx={{ color: "white" }} align="right">
-                  Date
-                </TableCell>
-                <TableCell sx={{ color: "white" }} align="right">
-                  Category
-                </TableCell>
-                <TableCell sx={{ color: "white" }} align="right">
-                  Amount
-                </TableCell>
-                <TableCell sx={{ color: "white" }} align="right">
-                  Payment Mode
-                </TableCell>
-              </TableRow>
-            </TableHead>
-          </TableContainer>
+          sx={{ width: "100%",margin: "auto",  marginTop: "25px",}}
+          >
+            <Expenses/>
+      
         </Box>
       </Box>
     </Box>

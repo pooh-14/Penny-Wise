@@ -12,7 +12,7 @@ const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const toggle = () => {
     setMenu(!menu);
   };
-  return (
+  return (  
     <div>
       <AuthContext.Provider value={{ menu, setMenu, toggle }}>
         {children}

@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <>
-    <AppBar sx={{height: 60,justifyContent: "center", zIndex:'1', backgroundColor:"black",top:"0"}} position="sticky"  elevation={5}>
+    <AppBar sx={{height: 60,justifyContent: "center", zIndex:'99', backgroundColor:"black",top:"0",}} position="sticky"  elevation={5}>
         <Toolbar>
         <MenuIcon fontSize="large" color="inherit" onClick={toggle}/>
         <Stack sx={{ marginLeft: "auto"}} spacing={2} direction="row">
