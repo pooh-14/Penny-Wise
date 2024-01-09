@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import App from "../App";
 import { Box } from "@mui/material";
-import Navbar from "./Navbar";
-import SideBar from "./SideBar";
-import { AuthContext } from "./Context/AuthContext";
+import { AuthContext } from "../Context/AuthContext";
+import SideBar from "../Components/SideBar";
+import Navbar from "../Components/Navbar";
 
 const Container = () => {
     
@@ -32,14 +32,16 @@ const Container = () => {
       </Box>
       <Box sx={{ width: "100%" }}>
         <Box
-          sx={{ width: "100%", height: "60px", position: "sticky", top: "0" }}
+          sx={{ width: "100%", height: "60px", position: "sticky", top: "0", zIndex:'999' }}
         >
           <Navbar />
         </Box>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%"}}>
           <App />
         </Box>
       </Box>
+
+     
     </Box>
   );
 };

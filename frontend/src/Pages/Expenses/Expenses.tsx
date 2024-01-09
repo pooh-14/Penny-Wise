@@ -22,10 +22,10 @@ import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 
 const Expenses = () => {
 
-  const[count,setCount]=useState(true)
+  const[open,setOpen]=useState(false)
 
-  const pop=()=>{
-    setCount(!count)
+  const popup=()=>{
+    setOpen(!open)
   }
   
   const secdiv = {
@@ -39,7 +39,7 @@ const Expenses = () => {
     fontFamily: "Poppins",
     marginBottom: "30px",
     position:"relative",
-    zIndex:'1'
+    zIndex:'0'
   };
 
   const bttn = {
@@ -249,7 +249,7 @@ const Expenses = () => {
               }}
               variant="outlined"
             />
-            <Button variant="contained" sx={bttn} onClick={pop}>
+            <Button variant="contained" sx={bttn} onClick={popup}>
               Add Expense
             </Button>
 
@@ -381,7 +381,7 @@ const Expenses = () => {
           </Box>
         </TableContainer>
 
-        {count?
+        {open?
         <Box sx={{position:"absolute",top:"50px",left:"300px", border:"1px solid white", backgroundColor:"white", padding:"15px", width:"400px"}}>
         <Typography sx={{color:"black"}}>Add Expense</Typography>
       <FormControl sx={{ width: "90%" }}>

@@ -15,7 +15,7 @@ import PaidTwoToneIcon from "@mui/icons-material/PaidTwoTone";
 import AccountBalanceWalletTwoToneIcon from "@mui/icons-material/AccountBalanceWalletTwoTone";
 import LineChart from "./LineChart";
 import PieChart from "./PieChart";
-import Expenses from "./Expenses";
+import Expenses from "../Expenses/Expenses";
 
 const HomePage = () => {
   const pprbox = {

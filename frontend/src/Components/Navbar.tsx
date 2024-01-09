@@ -2,16 +2,16 @@ import { AppBar, Avatar, Badge, Box, IconButton, Stack, Toolbar, Typography } fr
 import React, { useContext } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import { AuthContext } from './Context/AuthContext';
+import { AuthContext } from '../Context/AuthContext';
 
 const Navbar = () => {
 
-  const { toggle ,menu} = useContext(AuthContext);
+  const { toggle } = useContext(AuthContext);
   
 
   return (
     <>
-    <AppBar sx={{height: 60,justifyContent: "center", zIndex:'99', backgroundColor:"black",top:"0",}} position="sticky"  elevation={5}>
+    <AppBar sx={{height: 60,justifyContent: "center", zIndex:'999', backgroundColor:"black",top:"0",}} position="sticky"  elevation={5}>
         <Toolbar>
         <MenuIcon fontSize="large" color="inherit" onClick={toggle}/>
         <Stack sx={{ marginLeft: "auto"}} spacing={2} direction="row">
