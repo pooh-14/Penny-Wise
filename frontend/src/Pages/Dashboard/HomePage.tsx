@@ -13,8 +13,8 @@ import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
 import VolunteerActivismTwoToneIcon from "@mui/icons-material/VolunteerActivismTwoTone";
 import PaidTwoToneIcon from "@mui/icons-material/PaidTwoTone";
 import AccountBalanceWalletTwoToneIcon from "@mui/icons-material/AccountBalanceWalletTwoTone";
-import LineChart from "./LineChart";
-import PieChart from "./PieChart";
+import LineChart from "../../LineChart";
+import PieChart from "../../Components/PieChart";
 import Expenses from "../Expenses/Expenses";
 
 const HomePage = () => {

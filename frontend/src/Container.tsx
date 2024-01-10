@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import App from "../App";
+import App from "./App";
 import { Box } from "@mui/material";
-import { AuthContext } from "../Context/AuthContext";
-import SideBar from "../Components/SideBar";
-import Navbar from "../Components/Navbar";
+import { AuthContext } from "./Context/AuthContext";
+import SideBar from "./Components/SideBar";
+import Navbar from "./Components/Navbar";
 
 const Container = () => {
     

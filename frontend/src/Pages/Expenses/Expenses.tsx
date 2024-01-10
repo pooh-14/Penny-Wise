@@ -19,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
+import AddExpense from "../../Components/AddExpense";
 
 const Expenses = () => {
 
@@ -382,87 +383,7 @@ const Expenses = () => {
         </TableContainer>
 
         {open?
-        <Box sx={{position:"absolute",top:"50px",left:"300px", border:"1px solid white", backgroundColor:"white", padding:"15px", width:"400px"}}>
-        <Typography sx={{color:"black"}}>Add Expense</Typography>
-      <FormControl sx={{ width: "90%" }}>
-          <FormControl>
-            <TextField
-              label="Date"
-              variant="outlined"
-              sx={{ marginBottom: "30px" }}
-              InputProps={{
-                sx:{
-                  fontSize:{sm:"20px",md:"14px"},
-                  width:"100%",
-                  height:{sm:"70px",md:"40px"},
-                  padding:"0"
-                }
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <TextField
-              label="Description"
-              variant="outlined"
-              sx={{ marginBottom: "30px" }}
-              InputProps={{
-                sx:{
-                  fontSize:{sm:"20px",md:"14px"},
-                  width:"100%",
-                  height:{sm:"70px",md:"40px"},
-                  padding:"0"
-                }
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <TextField
-              label="Category"
-              variant="outlined"
-              sx={{ marginBottom: "30px" }}
-              InputProps={{
-                sx:{
-                  fontSize:{sm:"20px",md:"14px"},
-                  width:"100%",
-                  height:{sm:"70px",md:"40px"},
-                  padding:"0"
-                }
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <TextField
-              label="Amount"
-              variant="outlined"
-              sx={{ marginBottom: "30px" }}
-              InputProps={{
-                sx:{
-                  fontSize:{sm:"20px",md:"14px"},
-                  width:"100%",
-                  height:{sm:"70px",md:"40px"},
-                  padding:"0"
-                }
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <TextField
-              label="Payment Mode"
-              variant="outlined"
-              sx={{ marginBottom: "30px" }}
-              InputProps={{
-                sx:{
-                  fontSize:{sm:"20px",md:"14px"},
-                  width:"100%",
-                  height:{sm:"70px",md:"40px"},
-                  padding:"0"
-                }
-              }}
-            />
-          </FormControl>
-          <Button variant="contained" sx={{height:{sm:"50px",md:"35px" },fontSize:{sm:"20px", md:"15px"}}}>Add Expense</Button>
-        </FormControl>
-      </Box>
+       <AddExpense/>
       :null
       }
       </Box>
