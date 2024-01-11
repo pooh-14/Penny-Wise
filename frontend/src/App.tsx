@@ -8,8 +8,7 @@ import Accounts from './Pages/Accounts/Accounts';
 import MyProfile from './Pages/MyProfile/MyProfile';
 import Transactions from './Pages/Transactions/Transactions';
 import IncomeSavings from './Pages/IncomeSavings/IncomeSavings';
-import ProObs from './Components/ProObs';
-
+import AddExpense from './Components/AddExpense';
 function App() {
   return (     
     <div className="App">
@@ -20,8 +19,7 @@ function App() {
         <Route path='/profile' element={<MyProfile/>}/>
         <Route path='/transaction' element={<Transactions/>}/>
         <Route path='/income' element={<IncomeSavings/>}/>
-        
-        <Route path='/pro' element={<ProObs/>}/>
+        <Route path='/add' element={<AddExpense/>}/>
       </Routes>
     </div>
   );
