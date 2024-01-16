@@ -24,6 +24,11 @@ const ExpenseSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide Payment mode'],
     },
+    
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
 
     createdAt: {
         type: Date,
