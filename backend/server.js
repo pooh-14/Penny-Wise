@@ -50,7 +50,7 @@ app.use('/api/v1/auth', auth);
 // Add error middlewear
 app.use(errorHandler);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log('Server is started'.blue);
 });
