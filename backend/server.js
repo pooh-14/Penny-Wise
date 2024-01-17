@@ -23,7 +23,7 @@ dotenv.config({path: './config/.env'});
 connectDB();
 
 // Load routes
-const auth = require('./routes/auth');
+const router = require('./routes/index');
 
 // to set up express application
 const app = express();
@@ -45,12 +45,12 @@ app.use(morgan('tiny'));
 app.use(cookieParser());
 
 // add route
-app.use('/api/v1/auth', auth);
+app.use('/api/v1', router);
 
 // Add error middlewear
 app.use(errorHandler);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log('Server is started'.blue);
 });

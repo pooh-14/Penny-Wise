@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
 
 // Encript password
 
-// function should be executed before 'saving' a document of the 'UserSchema' model in Mongoose
+// .pre('save') - function should be executed before 'saving' a document of the 'UserSchema' model in Mongoose
 UserSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
