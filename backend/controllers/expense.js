@@ -10,20 +10,6 @@ const jwt = require('jsonwebtoken');
 exports.addExpense = asyncHandler(async (req, res, next) => {
   const { date, description, category, amount, payment } = req.body;
   console.log("dateee:", date, "description:", description);
-  const { token } = req.body;
-
-  if (!date || !description || !category || !amount || !payment || !token) {
-    return res.json({ success: false, message: "All fields are required" });
-  }
-
-  const decode = jwt.verify(token, process.env.JWT_TOKEN_SECRET_KEY);
-  console.log(decode);
-
-  req.user = await User.findById(decode.id);
-  console.log(req.user);
-  if (!req.user) {
-    return res.json({ success: false, message: "User not found" });
-  }
 
   // Add Expense
   const expense = await Expense.create({
@@ -32,10 +18,8 @@ exports.addExpense = asyncHandler(async (req, res, next) => {
     category,
     amount,
     payment,
+    userId:req.user.id
   });
-  req.user.expenses.push(expense);
-  console.log(expense)
-  await req.user.save();
 
-  res.status(200).json({ success: true, expense });
+  res.status(200).json({ success: true, expense: expense,userId:req.user.id });
 });
