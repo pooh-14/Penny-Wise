@@ -27,11 +27,18 @@ exports.addExpense = asyncHandler(async (req, res, next) => {
 });
 
 //@desc Get all Expenses
-// @route GET /api/v1/get-expense
+// @route GET /api/v1/expense,get-expense
 // @access Private
 exports.getExpense = asyncHandler(async (req, res, next) => {
-  const allExpense = Expense.find({});
-  return res
+  const { id } = req.user;
+  const { category } = req.query;
+  console.log(req.user)
+  const allExpense = await Expense.find({userId:id});
+  const categoryExpenses = category
+    ? await Expense.find({ userId:id, category })
+    : [];
+    res
     .status(200)
-    .json({ success: true, allExpense: allExpense, user: req.user });
+    .json({ success: true, allExpense: allExpense,categoryExpenses:categoryExpenses, user: req.user });
+  
 });
