@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const ExpenseSchema = new mongoose.Schema({
     date: {
-        type: String,
+        type: Date,
+        default:Date.now,
         required: [true, 'Please enter the date'],
     },
     description: {

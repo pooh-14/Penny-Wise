@@ -100,18 +100,19 @@ exports.editProfile = asyncHandler(async (req, res, next) => {
   if (password !== confirmPassword) {
     return next(new ErrorResponse("Passwords do not match!", 401));
   }
+  const hashedPassword= await bcrypt.hash(password,10)
   const editedProfile = await User.findByIdAndUpdate(
     id,
-    {name, password },
+    {name, password:hashedPassword },
     { new: true }
   );
   console.log(editedProfile, "editedProfile");
 
-// // hash entered password
-const salt = await bcrypt.genSalt(10);
-editedProfile.password = await bcrypt.hash(password,salt);
+// // // hash entered password
+// const salt = await bcrypt.genSalt(10);
+// editedProfile.password = await bcrypt.hash(password,salt);
 
-await editedProfile.save()
+// await editedProfile.save()
 
   res.status(200).json({ success: true, editedProfile:editedProfile });
 });

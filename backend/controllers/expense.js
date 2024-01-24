@@ -19,12 +19,14 @@ exports.addExpense = asyncHandler(async (req, res, next) => {
     category,
     amount,
     payment,
-    userId: req.user.id,
+    userId: req.user.id, 
+    // select -
+    // cannot add future expense
   });
 
   res
     .status(200)
-    .json({ success: true, expense: expense, userId: req.user.id });
+    .json({ success: true, expense: expense });
 });
 
 //@desc Get all Expenses
