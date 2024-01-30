@@ -9,8 +9,6 @@ const ExpenseSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Please provide a description'],
-        // unique: true,
-        // match:[/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please provide a valid emial']
     },
     category: {
         type: String,
