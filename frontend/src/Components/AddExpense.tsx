@@ -1,7 +1,6 @@
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import { error } from "console";
 import React, { useState } from "react";
-// import DatePicker from "react-datepicker";
 
 const AddExpense = () => {
   const [expenseData, setExpenseData] = useState({

@@ -14,21 +14,59 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import AddExpense from "../../Components/AddExpense";
+import { API } from "../../Constant/network";
 
-const Expenses = () => {
+interface Exptab {
+  date: String;
+  description: String;
+  category: String;
+  amount: String;
+  payment: String;
+}
 
-  const[open,setOpen]=useState(false)
+const Expenses: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const [expenseData, setExpenseData] = useState<Exptab[]>([]);
 
-  const popup=()=>{
-    setOpen(!open)
-  }
+  const popup = () => {
+    setOpen(!open);
+  };
+
+  const url = " http://localhost:8000/api/v1/expense/expense";
+  // const token = JSON.parse(localStorage.getItem("token"));
+  const headers = {
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTc1ZDY0Yzc1MmM1MmEyYTBiMjE3ZiIsImlhdCI6MTcwNjY4ODY0NSwiZXhwIjoxNzA2NzEyMTAxfQ.q13TKiyFsy7zVWNOpitzFJtTrJynpzoCWvnmxzwuKqw",
+  };
+  const paramsObj = { skipNo: 0, takeNo: 0 };
+  const getExpData = () => {
+    API.get(url, paramsObj, headers)?.subscribe({
+      next(response: any) {
+        // console.log(response,": response");
+        // console.log(response.data,": response.data");
+        // console.log(response.data.allExpense,": response.data.allExpense");
+        setExpenseData(response.allExpense);
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log("complete")
+      },
+    });
+  };
   
+  useEffect(() => {
+    getExpData();
+  }, []);
+  console.log(expenseData, " - expenseDAta");
+
   const secdiv = {
     width: "95%",
     margin: "auto",
@@ -39,8 +77,8 @@ const Expenses = () => {
     padding: "15px",
     fontFamily: "Poppins",
     marginBottom: "30px",
-    position:"relative",
-    zIndex:'0'
+    position: "relative",
+    zIndex: "0",
   };
 
   const bttn = {
@@ -131,84 +169,42 @@ const Expenses = () => {
     },
   };
 
-  const tblcntnt = [
-    {
-      date: "20-11-2023",
-      description: "Jose King",
-      category: "Shopping",
-      amount: "8970",
-      payment: "UPI",
+  const tableCell={
+    paddingLeft: "0px",
+    color: "#f8edeb",
+    width: "187px",
+    padding: {
+      xs: "0px 7px",
+      sm: "30px 20px 30px 10px",
+      md: "0px 0px",
     },
+    textWrap: "nowrap",
+    fontSize: { sm: "20px", md: "14px" },
+  }   
 
-    {
-      date: "20-11-2023",
-      description: "Kevin Wilkinson",
-      category: "Food ",
-      amount: "785",
-      payment: "Cash",
+  const dateCell={
+    paddingLeft: "10px",
+    width: "187px",
+    padding: {
+      xs: "0px 7px",
+      sm: "30px 20px 30px 10px",
+      md: "0px 10px",
     },
+    textWrap: "nowrap",
+    fontSize: { sm: "20px", md: "14px" },
+    color: "#f8edeb",
+  }
 
-    {
-      date: "20-11-2023",
-      description: "Jon Doe",
-      category: "Travel",
-      amount: "98678",
-      payment: "Credit Card",
-    },
-    {
-      date: "20-11-2023",
-      description: "Jose King",
-      category: "Shopping",
-      amount: "8970",
-      payment: "UPI",
-    },
+  const desCell={
+    paddingLeft: "0px",
+    color: "#f8edeb",
+    width: "187px",
+    textWrap: "nowrap",
+    fontSize: { sm: "20px", md: "14px" },
+  }
 
-    {
-      date: "20-11-2023",
-      description: "Kevin Wilkinson",
-      category: "Food ",
-      amount: "785",
-      payment: "UPI",
-    },
 
-    {
-      date: "20-11-2023",
-      description: "Jon Doe",
-      category: "Travel",
-      amount: "98678",
-      payment: "Debit Card",
-    },
-    {
-      date: "20-11-2023",
-      description: "Jose King",
-      category: "Shopping",
-      amount: "8970",
-      payment: "UPI",
-    },
-
-    {
-      date: "20-11-2023",
-      description: "Kevin Wilkinson",
-      category: "Food ",
-      amount: "785",
-      payment: "Cash",
-    },
-
-    {
-      date: "20-11-2023",
-      description: "Jon Doe",
-      category: "Travel",
-      amount: "98678",
-      payment: "Cash",
-    },
-    {
-      date: "20-11-2023",
-      description: "Jose King",
-      category: "Shopping",
-      amount: "8970",
-      payment: "Debit Card",
-    },
-  ];
+  
 
   return (
     <>
@@ -263,111 +259,67 @@ const Expenses = () => {
           <Table>
             <TableHead>
               <TableRow>
+              <TableCell
+                  align="left"
+                  sx={dateCell}
+                >
+                  <strong>Sr No.</strong>
+                </TableCell>
                 <TableCell
                   align="left"
-                  sx={{
-                    paddingLeft: "10px",
-                    width: "187px",
-                    padding: {
-                      xs: "0px 7px",
-                      sm: "30px 20px 30px 10px",
-                      md: "0px 10px",
-                    },
-                    textWrap: "nowrap",
-                    fontSize: { sm: "20px", md: "14px" },
-                    color: "#f8edeb",
-                  }}
+                  sx={dateCell}
                 >
                   <strong>Date</strong>
                 </TableCell>
                 <TableCell
                   align="left"
-                  sx={{
-                    paddingLeft: "0px",
-
-                    color: "#f8edeb",
-                    width: "187px",
-                    textWrap: "nowrap",
-                    fontSize: { sm: "20px", md: "14px" },
-                  }}
+                  sx={desCell}
                 >
                   <strong>Description</strong>
                 </TableCell>
                 <TableCell
                   align="left"
-                  sx={{
-                    paddingLeft: "0px",
-
-                    color: "#f8edeb",
-                    width: "187px",
-                    padding: {
-                      xs: "0px 7px",
-                      sm: "30px 20px 30px 10px",
-                      md: "0px 0px",
-                    },
-                    textWrap: "nowrap",
-                    fontSize: { sm: "20px", md: "14px" },
-                  }}
+                  sx={tableCell}
                 >
                   <strong>Category</strong>
                 </TableCell>
                 <TableCell
                   align="left"
-                  sx={{
-                    paddingLeft: "0px",
-                    color: "#f8edeb",
-                    width: "187px",
-                    padding: {
-                      xs: "0px 7px",
-                      sm: "30px 20px 30px 10px",
-                      md: "0px 0px",
-                    },
-                    textWrap: "nowrap",
-                    fontSize: { sm: "20px", md: "14px" },
-                  }}
+                  sx={tableCell}
                 >
                   <strong>Amount</strong>
                 </TableCell>
                 <TableCell
                   align="left"
-                  sx={{
-                    paddingLeft: "0px",
-
-                    color: "#f8edeb",
-                    width: "187px",
-                    padding: {
-                      xs: "0px 7px",
-                      sm: "30px 20px 30px 10px",
-                      md: "0px 0px",
-                    },
-                    textWrap: "nowrap",
-                    fontSize: { sm: "20px", md: "14px" },
-                  }}
+                  sx={tableCell}
                 >
                   <strong>Payment Mode</strong>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {tblcntnt?.map((content, index) => (
-                <TableRow sx={{ padding: "-16px" }}>
-                  <TableCell align="left" sx={{ padding: "5px 0" }}>
-                    <Box sx={contentname}>{content.date}</Box>
-                  </TableCell>
-                  <TableCell align="left" sx={celltwo}>
-                    {content.description}
-                  </TableCell>
-                  <TableCell align="left" sx={celltwo}>
-                    {content.category}
-                  </TableCell>
-                  <TableCell align="left" sx={celltwo}>
-                    {content.amount}
-                  </TableCell>
-                  <TableCell align="left" sx={celltwo}>
-                    {content.payment}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {expenseData?.map((content, index) => (
+              <TableRow sx={{ padding: "-16px" }} key={index}>
+                <TableCell align="left" sx={{ padding: "5px 0" }}>
+                  <Box sx={contentname}>{index+1}</Box>
+                </TableCell>
+                <TableCell align="left" sx={{ padding: "5px 0" }}>
+                  <Box sx={contentname}>{content.date}</Box>
+                </TableCell>
+                <TableCell align="left" sx={celltwo}>
+                  {content.description}
+                </TableCell>
+                <TableCell align="left" sx={celltwo}>
+                  {content.category}
+                </TableCell>
+                <TableCell align="left" sx={celltwo}>
+                  {content.amount}
+                </TableCell>
+                <TableCell align="left" sx={celltwo}>
+                  {content.payment}
+                </TableCell>
+              </TableRow>
+               ))} 
             </TableBody>
           </Table>
           <Box sx={show}>
@@ -382,10 +334,7 @@ const Expenses = () => {
           </Box>
         </TableContainer>
 
-        {open?
-       <AddExpense/>
-      :null
-      }
+        {open ? <AddExpense /> : null}
       </Box>
     </>
   );

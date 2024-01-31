@@ -9,6 +9,7 @@ import MyProfile from './Pages/MyProfile/MyProfile';
 import Transactions from './Pages/Transactions/Transactions';
 import IncomeSavings from './Pages/IncomeSavings/IncomeSavings';
 import AddExpense from './Components/AddExpense';
+import Register from './Pages/Forms/Register';
 function App() {
   return (     
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
         <Route path='/transaction' element={<Transactions/>}/>
         <Route path='/income' element={<IncomeSavings/>}/>
         <Route path='/add' element={<AddExpense/>}/>
+        <Route path='/register' element={<Register/>}/>
       </Routes>
     </div>
   );

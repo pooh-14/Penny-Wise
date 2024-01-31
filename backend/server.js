@@ -5,7 +5,7 @@ const express = require('express');
 //   It allows you to create environment variables in a . env file instead of putting them in your code.
 const dotenv = require('dotenv');
 // const logger = require('./middleware/logger');
-
+const cors = require('cors');
 // Morgan is another HTTP request logger middleware for Node. js.
 // It can be used to log requests, errors, and more to the console.
 // The preset tiny provides the minimal output when logging HTTP requests.
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Adding json-parser
 // middleware to parse data from the client-request
 app.use(express.json());
+app.use(cors());
 
 // Custome middleware Logger
 // app.use(logger);
