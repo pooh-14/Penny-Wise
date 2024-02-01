@@ -32,8 +32,10 @@ const post = (url: string, paramsObj: {}, headers?: {}) => {
       const params = { ...paramsObj };
       // params['AppCode'] = '1';
       // params['SelectedLanguage'] = selectedLanguage.toLowerCase();
+      
+      console.log(headers,"-headers")
       axios
-        .post(url, params, headers)
+        .post(url, params, {headers:headers})
         .then((response) => {
           observer.next(response.data);
           observer.complete();
@@ -73,10 +75,11 @@ const put = (url: string, paramsObj: {}, headers?: {}) => {
   try {
     return new Observable((observer: any) => {
       const params = { ...paramsObj };
+      console.log(params,"-params")
       // params['AppCode'] = '1';
       // params['SelectedLanguage'] = selectedLanguage.toLowerCase();
       axios
-        .put(url, params, headers)
+        .put(url, params, {headers:headers})
         .then((response) => {
           observer.next(response);
           observer.complete();

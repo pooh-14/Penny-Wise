@@ -21,6 +21,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import OpenInBrowserIcon from "@mui/icons-material/OpenInBrowser";
 import AddExpense from "../../Components/AddExpense";
 import { API } from "../../Constant/network";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 
 interface Exptab {
   date: String;
@@ -28,10 +31,12 @@ interface Exptab {
   category: String;
   amount: String;
   payment: String;
+  id :String;
 }
 
 const Expenses: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const router = useNavigate();
   const [expenseData, setExpenseData] = useState<Exptab[]>([]);
 
   const popup = () => {
@@ -42,7 +47,7 @@ const Expenses: React.FC = () => {
   // const token = JSON.parse(localStorage.getItem("token"));
   const headers = {
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTc1ZDY0Yzc1MmM1MmEyYTBiMjE3ZiIsImlhdCI6MTcwNjY4ODY0NSwiZXhwIjoxNzA2NzEyMTAxfQ.q13TKiyFsy7zVWNOpitzFJtTrJynpzoCWvnmxzwuKqw",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTc1ZDY0Yzc1MmM1MmEyYTBiMjE3ZiIsImlhdCI6MTcwNjc5MjM4MiwiZXhwIjoxNzA2ODE1ODM4fQ.ch-vOyZog0ZLSCcjH7mv9KmYi8v8r68Uy7OpJFJWVxw",
   };
   const paramsObj = { skipNo: 0, takeNo: 0 };
   const getExpData = () => {
@@ -57,15 +62,15 @@ const Expenses: React.FC = () => {
         console.log(error);
       },
       complete() {
-        console.log("complete")
+        // console.log("complete")
       },
     });
   };
-  
+
   useEffect(() => {
     getExpData();
   }, []);
-  console.log(expenseData, " - expenseDAta");
+  // console.log(expenseData, " - expenseDAta");
 
   const secdiv = {
     width: "95%",
@@ -169,7 +174,7 @@ const Expenses: React.FC = () => {
     },
   };
 
-  const tableCell={
+  const tableCell = {
     paddingLeft: "0px",
     color: "#f8edeb",
     width: "187px",
@@ -180,9 +185,9 @@ const Expenses: React.FC = () => {
     },
     textWrap: "nowrap",
     fontSize: { sm: "20px", md: "14px" },
-  }   
+  };
 
-  const dateCell={
+  const dateCell = {
     paddingLeft: "10px",
     width: "187px",
     padding: {
@@ -193,18 +198,15 @@ const Expenses: React.FC = () => {
     textWrap: "nowrap",
     fontSize: { sm: "20px", md: "14px" },
     color: "#f8edeb",
-  }
+  };
 
-  const desCell={
+  const desCell = {
     paddingLeft: "0px",
     color: "#f8edeb",
     width: "187px",
     textWrap: "nowrap",
     fontSize: { sm: "20px", md: "14px" },
-  }
-
-
-  
+  };
 
   return (
     <>
@@ -259,67 +261,66 @@ const Expenses: React.FC = () => {
           <Table>
             <TableHead>
               <TableRow>
-              <TableCell
-                  align="left"
-                  sx={dateCell}
-                >
+                <TableCell align="left" sx={dateCell}>
                   <strong>Sr No.</strong>
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={dateCell}
-                >
+                <TableCell align="left" sx={dateCell}>
                   <strong>Date</strong>
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={desCell}
-                >
+                <TableCell align="left" sx={desCell}>
                   <strong>Description</strong>
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={tableCell}
-                >
+                <TableCell align="left" sx={tableCell}>
                   <strong>Category</strong>
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={tableCell}
-                >
+                <TableCell align="left" sx={tableCell}>
                   <strong>Amount</strong>
                 </TableCell>
-                <TableCell
-                  align="left"
-                  sx={tableCell}
-                >
+                <TableCell align="left" sx={tableCell}>
                   <strong>Payment Mode</strong>
+                </TableCell>
+                <TableCell align="left" sx={tableCell}>
+                  <strong>Edit</strong>
+                </TableCell>
+                <TableCell align="left" sx={tableCell}>
+                  <strong>Delete</strong>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {expenseData?.map((content, index) => (
-              <TableRow sx={{ padding: "-16px" }} key={index}>
-                <TableCell align="left" sx={{ padding: "5px 0" }}>
-                  <Box sx={contentname}>{index+1}</Box>
-                </TableCell>
-                <TableCell align="left" sx={{ padding: "5px 0" }}>
-                  <Box sx={contentname}>{content.date}</Box>
-                </TableCell>
-                <TableCell align="left" sx={celltwo}>
-                  {content.description}
-                </TableCell>
-                <TableCell align="left" sx={celltwo}>
-                  {content.category}
-                </TableCell>
-                <TableCell align="left" sx={celltwo}>
-                  {content.amount}
-                </TableCell>
-                <TableCell align="left" sx={celltwo}>
-                  {content.payment}
-                </TableCell>
-              </TableRow>
-               ))} 
+                <TableRow sx={{ padding: "-16px" }} key={index}>
+                  <TableCell align="left" sx={{ padding: "5px 0" }}>
+                    <Box sx={contentname}>{index + 1}</Box>
+                  </TableCell>
+                  <TableCell align="left" sx={{ padding: "5px 0" }}>
+                    <Box sx={contentname}>{content.date}</Box>
+                  </TableCell>
+                  <TableCell align="left" sx={celltwo}>
+                    {content.description}
+                  </TableCell>
+                  <TableCell align="left" sx={celltwo}>
+                    {content.category}
+                  </TableCell>
+                  <TableCell align="left" sx={celltwo}>
+                    {content.amount}
+                  </TableCell>
+                  <TableCell align="left" sx={celltwo}>
+                    {content.payment}
+                  </TableCell>
+                  <TableCell align="left" sx={celltwo}>
+                    <IconButton onClick={() => router(`/edit/${content.id}`)}>
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+
+                  <TableCell align="left" sx={celltwo}>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
           <Box sx={show}>

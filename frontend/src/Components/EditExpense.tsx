@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { API } from "../Constant/network";
+import { useParams } from "react-router-dom";
 
 interface ExpenseData {
   date: string;
@@ -11,7 +12,7 @@ interface ExpenseData {
   payment: string;
 }
 
-const AddExpense: React.FC = () => {
+const EditExpense: React.FC = () => {
   const initialExpenseData: ExpenseData = {
     date: "",
     description: "",
@@ -31,6 +32,7 @@ const AddExpense: React.FC = () => {
       payment: false,
     }
   );
+  const { id } = useParams();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -52,13 +54,6 @@ const AddExpense: React.FC = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // const isValid =
-    //   validateField("date") &&
-    //   validateField("description") &&
-    //   validateField("category") &&
-    //   validateField("amount") &&
-    //   validateField("payment");
-
     const isValid =
       expenseData.date &&
       expenseData.description &&
@@ -67,23 +62,24 @@ const AddExpense: React.FC = () => {
       expenseData.payment;
 
     if (isValid) {
-      const url = "http://localhost:8000/api/v1/expense/expense";
+      const url = `http://localhost:8000/api/v1/expense/expense?id=${id}`;
+      // const paramsObj = { id: "65bb6692cb2b271b580cae03" };
       const headers = {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTc1ZDY0Yzc1MmM1MmEyYTBiMjE3ZiIsImlhdCI6MTcwNjc3MjM1OCwiZXhwIjoxNzA2Nzk1ODE0fQ.x_8Hy_aONjAVHrLmZhGwEwhxJXEwSsPNyyrrVcBJDiI",
       };
-    API.post(url,expenseData,headers)?.subscribe({
-      next(response: any) {
-        console.log(response, ": response");
-        console.log(response.data, ": response.data");
-      },
-      error(error) {
-        console.log(error);
-      },
-      complete() {
-        console.log("complete");
-      },
-    });
+      API.put(url, expenseData, headers)?.subscribe({
+        next(response: any) {
+          console.log(response, ": response");
+          console.log(response.data, ": response.data");
+        },
+        error(error) {
+          console.log(error);
+        },
+        complete() {
+          console.log("complete");
+        },
+      });
       toast.success("Expense added Successfully!");
       setExpenseData(initialExpenseData);
     } else {
@@ -128,7 +124,7 @@ const AddExpense: React.FC = () => {
         width: "400px",
       }}
     >
-      <Typography sx={{ color: "black" }}>Add Expense</Typography>
+      <Typography sx={{ color: "black" }}>Edit Expense</Typography>
       <form style={{ width: "90%", margin: "auto" }} onSubmit={handleSubmit}>
         {["date", "description", "category", "amount", "payment"].map(
           (field) => (
@@ -180,11 +176,11 @@ const AddExpense: React.FC = () => {
             fontSize: { sm: "20px", md: "15px" },
           }}
         >
-          Add Expense
+          Edit Expense
         </Button>
       </form>
     </Box>
   );
 };
 
-export default AddExpense;
+export default EditExpense;

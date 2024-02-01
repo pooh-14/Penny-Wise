@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   FormControl,
@@ -7,16 +7,52 @@ import {
   Button,
   InputAdornment,
 } from "@mui/material";
-import bgImg from "../Images/loginimage.png";
+import bgImg from "../../Images/loginimage.png";
 import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router";
-import xsBgImg from "../Images/budget-planning.png";
-import smBgImg from "../Images/ipad.png";
+import xsBgImg from "../../Images/budget-planning.png";
+import smBgImg from "../../Images/ipad.png";
+import { API } from "../../Constant/network";
+import toast from "react-hot-toast";
+
+interface userLog {
+  email: String;
+  password: String;
+}
 
 const Login = () => {
   const router = useNavigate();
+  const [userData, setUserData] = useState<userLog>({
+    email: "",
+    password: "",
+  });
+  // const router = useNavigate();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData({ ...userData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = () => {
+    const url = "http://localhost:8000/api/v1/auth/login";
+    API.post(url, userData)?.subscribe({
+      next(response: any) {
+        console.log(response, ": response");
+        console.log(response.data, "-response.data from login");
+        setUserData(response.data);
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log("complete");
+      },
+    });
+    toast.success("Logged in Successfully!");
+  };
+
+  console.log(userData, " - userDAta");
 
   const outer = {
     width: "100%",
@@ -45,47 +81,47 @@ const Login = () => {
     backgroundImage: {
       xs: `url(${xsBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
       sm: `url(${bgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
-      md:`url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
+      md: `url(${smBgImg}),linear-gradient(135deg, #7b6ceb 0, #d371be 100%)`,
     },
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
     // backgroundSize: { xs: "small", md: "auto" },
     // border: "1px solid red",
-    borderRadius:{xs:"0 0 20px 20px", md:"0"},
+    borderRadius: { xs: "0 0 20px 20px", md: "0" },
   };
 
   const left = {
     width: { xs: "100%", md: "38%" },
-    height:"50vh",
+    height: "50vh",
     alignItems: "center",
     // border: "1px solid red",
-    margin: { xs: "15px 0 0 0 ", md:"auto " },
-    padding:{xs:"35px 0 0 0", md:"0"},
+    margin: { xs: "15px 0 0 0 ", md: "auto " },
+    padding: { xs: "35px 0 0 0", md: "0" },
   };
 
   const heading = {
     textAlign: "center",
     marginTop: { xs: "4%", md: "9%" },
     color: "white",
-    fontSize: {xs:"26px",sm:"40px", md:"35px"},
+    fontSize: { xs: "26px", sm: "40px", md: "35px" },
     fontWeight: "600",
   };
 
   const subhead = {
     textAlign: "center",
     color: "white",
-    fontSize:  {xs:"14px",sm:"22px", md:"18px"},
+    fontSize: { xs: "14px", sm: "22px", md: "18px" },
     fontWeight: "500",
-    marginTop: { xs: "1.2%",sm:"6px", md: "5px" },
+    marginTop: { xs: "1.2%", sm: "6px", md: "5px" },
     // display:{xs:"none", md:"block"}
   };
 
   const sub = {
     textAlign: "center",
     color: "white",
-    fontSize: {xs:"17px",sm:"25px",md:"19px"},
+    fontSize: { xs: "17px", sm: "25px", md: "19px" },
     fontWeight: "500",
-    marginTop: { xs: "1.1%",sm:"11px", md: "10px" },
+    marginTop: { xs: "1.1%", sm: "11px", md: "10px" },
   };
 
   return (
@@ -96,7 +132,7 @@ const Login = () => {
           <Typography sx={subhead}>Use every Penny Wisely</Typography>
           <Typography sx={sub}>Login to Begin!</Typography>
         </Box>
-        <Box sx={left}>
+        <Box sx={left} component="form" onSubmit={handleSubmit}>
           <FormControl sx={{ width: "90%" }}>
             <FormControl>
               <TextField
@@ -107,14 +143,20 @@ const Login = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <EmailIcon sx={{fontSize:{sm:"30px",md:"23px"}}}/>
+                      <EmailIcon
+                        sx={{ fontSize: { sm: "30px", md: "23px" } }}
+                      />
                     </InputAdornment>
-                  ), 
-                  sx:{
-                    fontSize:{sm:"20px",md:"16px"},
-                    height:{sm:"70px",md:"55px"}
-                  }
+                  ),
+                  sx: {
+                    fontSize: { sm: "20px", md: "16px" },
+                    height: { sm: "70px", md: "55px" },
+                  },
                 }}
+                type="email"
+                name="email"
+                value={userData.email}
+                onChange={handleChange}
               />
             </FormControl>
             <FormControl>
@@ -126,27 +168,45 @@ const Login = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <KeyIcon sx={{fontSize:{sm:"30px",md:"23px"}}}/>
+                      <KeyIcon sx={{ fontSize: { sm: "30px", md: "23px" } }} />
                     </InputAdornment>
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
-                      <VisibilityIcon sx={{fontSize:{sm:"30px",md:"23px"}}}/>
+                      <VisibilityIcon
+                        sx={{ fontSize: { sm: "30px", md: "23px" } }}
+                      />
                     </InputAdornment>
-                  ), 
-                  sx:{
-                    fontSize:{sm:"20px",md:"16px"},
-                    height:{sm:"70px",md:"55px"}
-                  }
+                  ),
+                  sx: {
+                    fontSize: { sm: "20px", md: "16px" },
+                    height: { sm: "70px", md: "55px" },
+                  },
                 }}
+                type="password"
+                name="password"
+                value={userData.password}
+                onChange={handleChange}
               />
             </FormControl>
-            <Button variant="contained" sx={{height:{sm:"50px",md:"35px" },fontSize:{sm:"20px", md:"15px"}}}>Sign In</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                height: { sm: "50px", md: "35px" },
+                fontSize: { sm: "20px", md: "15px" },
+              }}
+            >
+              Sign In
+            </Button>
             <Typography
               variant="body2"
-              sx={{ marginTop: {xs:"25px",md:"15px"}, fontSize: {sm:"19px",md:"12px"}, }}
+              sx={{
+                marginTop: { xs: "25px", md: "15px" },
+                fontSize: { sm: "19px", md: "12px" },
+              }}
             >
-              New User? <b onClick={()=>router("/register")}>Sign Up</b>
+              New User? <b onClick={() => router("/register")}>Sign Up</b>
             </Typography>
           </FormControl>
         </Box>

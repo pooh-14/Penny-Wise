@@ -20,6 +20,7 @@ import xsBgImg from "../../Images/budget-planning.png";
 import { useNavigate } from "react-router-dom";
 import smBgImg from "../../Images/ipad.png";
 import { API } from "../../Constant/network";
+import toast from "react-hot-toast";
 
 interface userTab {
   role: any;
@@ -48,21 +49,21 @@ const Register = () => {
 
   const handleRegistration = () => {
     const url = "http://localhost:8000/api/v1/auth/register";
+    
     API.post(url, userData)?.subscribe({
       next(response: any) {
         console.log(response, ": response");
         console.log(response.data, ": response.data");
         setUserData(response.data);
-        alert("reg success");
       },
       error(error) {
         console.log(error);
-        alert("reg failed");
       },
       complete() {
         console.log("complete");
       },
     });
+    toast.success("Registered Successfully!");
   };
 
   console.log(userData, " - userDAta");
