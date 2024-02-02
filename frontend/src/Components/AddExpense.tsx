@@ -68,10 +68,8 @@ const AddExpense: React.FC = () => {
 
     if (isValid) {
       const url = "http://localhost:8000/api/v1/expense/expense";
-      const headers = {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTc1ZDY0Yzc1MmM1MmEyYTBiMjE3ZiIsImlhdCI6MTcwNjc3MjM1OCwiZXhwIjoxNzA2Nzk1ODE0fQ.x_8Hy_aONjAVHrLmZhGwEwhxJXEwSsPNyyrrVcBJDiI",
-      };
+      const token: string | null = JSON.parse(localStorage.getItem("userToken") || 'null');
+      const headers = {Authorization: "Bearer " + token};
     API.post(url,expenseData,headers)?.subscribe({
       next(response: any) {
         console.log(response, ": response");

@@ -70,6 +70,15 @@ exports.getExpense = asyncHandler(async (req, res, next) => {
 });
 
 //@desc Edit Expense
+// @eoute POST /api/v1/expense/expense/single-expense
+// @access Private
+exports.getSingleExpense = asyncHandler(async (req, res, next) => {
+const {id}=req.params;
+const singleExpense = await Expense.findById(id);
+res.status(200).json({ success: true, singleExpense });
+})
+
+//@desc Edit Expense
 // @eoute POST /api/v1/expense/expense/edit-expense
 // @access Public
 exports.editExpense = asyncHandler(async (req, res, next) => {
@@ -88,7 +97,7 @@ exports.editExpense = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, editedExpense });
 });
 
-//@desc Edit Expense
+//@desc Delete Expense
 // @eoute POST /api/v1/expense/expense/delete-expense
 // @access Public
 exports.deleteExpense = asyncHandler(async (req, res, next) => {

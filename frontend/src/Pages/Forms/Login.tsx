@@ -34,13 +34,15 @@ const Login = () => {
     setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    event?.preventDefault()
     const url = "http://localhost:8000/api/v1/auth/login";
     API.post(url, userData)?.subscribe({
       next(response: any) {
-        console.log(response, ": response");
-        console.log(response.data, "-response.data from login");
-        setUserData(response.data);
+        // setUserData(response.data);
+        // console.log(response.data.email, "-response.email");
+        console.log(response.token, "-response.data from login");
+        localStorage.setItem("userToken", JSON.stringify(response.token));
       },
       error(error) {
         console.log(error);

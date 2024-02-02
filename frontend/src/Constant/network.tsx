@@ -32,29 +32,33 @@ const post = (url: string, paramsObj: {}, headers?: {}) => {
       const params = { ...paramsObj };
       // params['AppCode'] = '1';
       // params['SelectedLanguage'] = selectedLanguage.toLowerCase();
-      
-      console.log(headers,"-headers")
+
+      console.log(url, "-url");
+      console.log(params, "-params");
       axios
-        .post(url, params, {headers:headers})
+        .post(url, params, { headers: headers })
         .then((response) => {
           observer.next(response.data);
           observer.complete();
         })
         .catch((error) => {
-          // if (error && error.response && error.response.status === 401) {
-          //     refreshToken('post', url, params).subscribe(
-          //         res => {
-          //             observer.next(res);
-          //             observer.complete();
-          //         }, err => {
-          //             observer.error(err);
-          //             observer.complete();
-          //         }
-          //     )
-          // } else {
-          //     observer.error(error);
-          //     observer.complete();
-          // }
+          if (error && error.response && error.response.status === 401) {
+            observer.next(error);
+            observer.complete();
+            // if (error && error.response && error.response.status === 401) {
+            //     refreshToken('post', url, params).subscribe(
+            //         res => {
+            //             observer.next(res);
+            //             observer.complete();
+            //         }, err => {
+            //             observer.error(err);
+            //             observer.complete();
+            //         }
+            //     )
+            // } else {
+            //     observer.error(error);
+            //     observer.complete();
+          }
         });
     });
   } catch (err) {
@@ -75,13 +79,13 @@ const put = (url: string, paramsObj: {}, headers?: {}) => {
   try {
     return new Observable((observer: any) => {
       const params = { ...paramsObj };
-      console.log(params,"-params")
+      console.log(params, "-params");
       // params['AppCode'] = '1';
       // params['SelectedLanguage'] = selectedLanguage.toLowerCase();
       axios
-        .put(url, params, {headers:headers})
+        .put(url, params, { headers: headers })
         .then((response) => {
-          observer.next(response);
+          observer.next(response.data);
           observer.complete();
         })
         .catch((error) => {
@@ -121,15 +125,16 @@ const get = (url: string, paramsObj: {}, headers?: {}, cancelToken?: any) => {
     return new Observable((observer: any) => {
       // spread operator helps you to seperate the indices of the array or object
       const params = { ...paramsObj };
-      console.log(params);
+      // console.log(params);
       // params['AppCode'] = '1';
       // params['SelectedLanguage'] = selectedLanguage.toLowerCase();
       const _params = cancelToken
         ? { params, headers, cancelToken: cancelToken }
         : { params, headers };
-      console.log(_params, "_params-headers");
+      // console.log(_params, "_params-headers");
       // access data from the backend
-      axios.get(url, _params)
+      axios
+        .get(url, _params)
         // gets data from the backend as reponse
         .then((response) => {
           // sends the response to the frontend

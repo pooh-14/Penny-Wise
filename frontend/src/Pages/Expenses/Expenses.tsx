@@ -24,6 +24,7 @@ import { API } from "../../Constant/network";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import EditExpense from "../../Components/EditExpense";
 
 interface Exptab {
   date: String;
@@ -31,24 +32,78 @@ interface Exptab {
   category: String;
   amount: String;
   payment: String;
-  id :String;
+  _id: String;
 }
 
 const Expenses: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
   const router = useNavigate();
   const [expenseData, setExpenseData] = useState<Exptab[]>([]);
+  // console.log(expenseData);
 
   const popup = () => {
     setOpen(!open);
   };
 
-  const url = " http://localhost:8000/api/v1/expense/expense";
-  // const token = JSON.parse(localStorage.getItem("token"));
-  const headers = {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YTc1ZDY0Yzc1MmM1MmEyYTBiMjE3ZiIsImlhdCI6MTcwNjc5MjM4MiwiZXhwIjoxNzA2ODE1ODM4fQ.ch-vOyZog0ZLSCcjH7mv9KmYi8v8r68Uy7OpJFJWVxw",
+
+  // ----------------------------**Edit Expense**--------------------------------------------
+
+  const popEdit = (id: any) => {
+    setEdit(!open);
+    const url = `http://localhost:8000/api/v1/expense/expense/${id}`;
+    const token: string | null = JSON.parse(
+      localStorage.getItem("userToken") || "null"
+    );
+    const headers = { Authorization: "Bearer " + token };
+    API.get(url, expenseData, headers)?.subscribe({
+      next(response: any) {
+        console.log(response, ": response");
+        setExpenseData(response.singleExpense);
+        // console.log(response.singleExpense, ": response.singleExpense");
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log("complete");
+      },
+    });
+    router(`/expense/${id}`);
   };
+
+    // ----------------------------**Delete Expense**--------------------------------------------
+
+
+  const deleteExpense = (id: any) => {
+    const url = `http://localhost:8000/api/v1/expense/expense/${id}`;
+    const token: string | null = JSON.parse(
+      localStorage.getItem("userToken") || "null"
+    );
+    const headers = { Authorization: "Bearer " + token };
+    API.deleteApi(url, expenseData, headers)?.subscribe({
+      next(response: any) {
+        setExpenseData(response.deletedExpense);
+        console.log(response, ": response");
+        // console.log(response.data, ": response.data");
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log("complete");
+      },
+    });
+  };
+
+    // ----------------------------**Get Expense**--------------------------------------------
+
+
+  const url = " http://localhost:8000/api/v1/expense/expense";
+  const token: string | null = JSON.parse(
+    localStorage.getItem("userToken") || "null"
+  );
+  const headers = { Authorization: "Bearer " + token };
   const paramsObj = { skipNo: 0, takeNo: 0 };
   const getExpData = () => {
     API.get(url, paramsObj, headers)?.subscribe({
@@ -288,7 +343,8 @@ const Expenses: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {expenseData?.map((content, index) => (
+            {Array.isArray(expenseData) ? (
+              expenseData?.map((content, index) => (
                 <TableRow sx={{ padding: "-16px" }} key={index}>
                   <TableCell align="left" sx={{ padding: "5px 0" }}>
                     <Box sx={contentname}>{index + 1}</Box>
@@ -308,19 +364,20 @@ const Expenses: React.FC = () => {
                   <TableCell align="left" sx={celltwo}>
                     {content.payment}
                   </TableCell>
+
                   <TableCell align="left" sx={celltwo}>
-                    <IconButton onClick={() => router(`/edit/${content.id}`)}>
+                    <IconButton onClick={() => popEdit(content._id)}>
                       <EditIcon />
                     </IconButton>
                   </TableCell>
 
                   <TableCell align="left" sx={celltwo}>
-                    <IconButton>
+                    <IconButton onClick={() => deleteExpense(content._id)}>
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))): null}
             </TableBody>
           </Table>
           <Box sx={show}>
@@ -335,7 +392,8 @@ const Expenses: React.FC = () => {
           </Box>
         </TableContainer>
 
-        {open ? <AddExpense /> : null}
+        {open ? <AddExpense/> : null}
+        {edit ? <EditExpense/> : null}
       </Box>
     </>
   );

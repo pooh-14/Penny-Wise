@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
 import VolunteerActivismTwoToneIcon from "@mui/icons-material/VolunteerActivismTwoTone";
 import PaidTwoToneIcon from "@mui/icons-material/PaidTwoTone";
@@ -16,8 +16,44 @@ import AccountBalanceWalletTwoToneIcon from "@mui/icons-material/AccountBalanceW
 import LineChart from "../../LineChart";
 import PieChart from "../../Components/PieChart";
 import Expenses from "../Expenses/Expenses";
+import { API } from "../../Constant/network";
 
-const HomePage = () => {
+interface expOfMonth {
+  _id: null;
+  totalAmount: number;
+  totalDocuments: number;
+}
+
+const HomePage: React.FC = () => {
+  const [monthlyExp, setMonthlyExp] = useState<expOfMonth | null>(null);
+
+  const totalMonthlyExp = () => {
+    const url = "http://localhost:8000/api/v1/statistics/statistics";
+    const token: string | null = JSON.parse(
+      localStorage.getItem("userToken") || "null"
+    );
+    const headers = { Authorization: "Bearer " + token };
+    API.get(url, headers)?.subscribe({
+      next(response: any) {
+        setMonthlyExp(response.totalCount);
+        console.log(response, ": response");
+        console.log(response.totalCount, ": response.data");
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log("complete");
+      },
+    });
+  };
+
+  useEffect(() => {
+    totalMonthlyExp();
+  }, []);
+
+  console.log(monthlyExp,"---monthlyExp")
+
   const pprbox = {
     height: "100%",
     display: "flex",
@@ -67,9 +103,16 @@ const HomePage = () => {
   };
 
   return (
-    <Box sx={{ width: "100%",height:"200%"}}>
-      <Box sx={{ width: "100%",height:"100%", margin: "auto", paddingTop: "25px" }}>
-        <Box sx={{ width: "95%" ,margin: "auto",}}>
+    <Box sx={{ width: "100%", height: "200%" }}>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          margin: "auto",
+          paddingTop: "25px",
+        }}
+      >
+        <Box sx={{ width: "95%", margin: "auto" }}>
           <Grid container spacing={{ xs: 1, sm: 2, md: 4 }}>
             <Grid item xs={12} sm={6} md={3}>
               <Paper
@@ -122,7 +165,7 @@ const HomePage = () => {
                   <Box>
                     <Typography sx={{ fontSize: "15px" }}>Expenses</Typography>
                     <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
-                      $10000
+                      {/* {monthlyExp.totalAmount} */}
                     </Typography>
                   </Box>
                 </Box>
@@ -148,7 +191,7 @@ const HomePage = () => {
             </Grid>
           </Grid>
         </Box>
-        <Box sx={{ width: "95%",margin: "auto" , marginTop: "25px"}}>
+        <Box sx={{ width: "95%", margin: "auto", marginTop: "25px" }}>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <Paper
@@ -161,7 +204,7 @@ const HomePage = () => {
                 }}
               >
                 <Box>
-                  <LineChart/>
+                  <LineChart />
                 </Box>
               </Paper>
             </Grid>
@@ -175,16 +218,15 @@ const HomePage = () => {
                   color: "white",
                 }}
               >
-                <Box><PieChart/></Box>
+                <Box>
+                  <PieChart />
+                </Box>
               </Paper>
             </Grid>
           </Grid>
         </Box>
-        <Box
-          sx={{ width: "100%",margin: "auto",  marginTop: "25px",}}
-          >
-            <Expenses/>
-      
+        <Box sx={{ width: "100%", margin: "auto", marginTop: "25px" }}>
+          <Expenses />
         </Box>
       </Box>
     </Box>

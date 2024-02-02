@@ -1,7 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 // @desc Register User
 // @route POST /api/v1/auth/register
@@ -96,23 +96,23 @@ exports.editProfile = asyncHandler(async (req, res, next) => {
   const { id } = req.user;
 
   console.log(id, "userId");
-//   console.log(req, "req");
+  //   console.log(req, "req");
   if (password !== confirmPassword) {
     return next(new ErrorResponse("Passwords do not match!", 401));
   }
-  const hashedPassword= await bcrypt.hash(password,10)
+  const hashedPassword = await bcrypt.hash(password, 10);
   const editedProfile = await User.findByIdAndUpdate(
     id,
-    {name, password:hashedPassword },
+    { name, password: hashedPassword },
     { new: true }
   );
   console.log(editedProfile, "editedProfile");
 
-// // // hash entered password
-// const salt = await bcrypt.genSalt(10);
-// editedProfile.password = await bcrypt.hash(password,salt);
+  // // // hash entered password
+  // const salt = await bcrypt.genSalt(10);
+  // editedProfile.password = await bcrypt.hash(password,salt);
 
-// await editedProfile.save()
+  // await editedProfile.save()
 
-  res.status(200).json({ success: true, editedProfile:editedProfile });
+  res.status(200).json({ success: true, editedProfile: editedProfile });
 });

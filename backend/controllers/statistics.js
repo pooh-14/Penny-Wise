@@ -32,7 +32,7 @@ exports.totalMonthlyExpense = asyncHandler(async (req, res, next) => {
           // greater than equal to
           $gte: firstDayOfMonth,
           $lte: lastDayOfMonth,
-        }
+        },
       },
     },
     {
@@ -43,5 +43,8 @@ exports.totalMonthlyExpense = asyncHandler(async (req, res, next) => {
       },
     },
   ]);
+
+  console.log("totalCount :", totalCount);
+
   res.status(200).json({ success: true, totalCount });
 });

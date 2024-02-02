@@ -48,13 +48,15 @@ const Register = () => {
   };
 
   const handleRegistration = () => {
+    // const array: any[] = JSON.parse(localStorage.getItem("Users") || "[]");
     const url = "http://localhost:8000/api/v1/auth/register";
-    
     API.post(url, userData)?.subscribe({
       next(response: any) {
         console.log(response, ": response");
         console.log(response.data, ": response.data");
         setUserData(response.data);
+        // array.push(response.data);
+        // localStorage.setItem("Users", JSON.stringify(array));
       },
       error(error) {
         console.log(error);
@@ -63,6 +65,7 @@ const Register = () => {
         console.log("complete");
       },
     });
+
     toast.success("Registered Successfully!");
   };
 
