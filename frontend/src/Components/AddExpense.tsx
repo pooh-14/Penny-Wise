@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { API } from "../Constant/network";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface ExpenseData {
   date: string;
@@ -120,18 +121,21 @@ const AddExpense: React.FC = () => {
         position: "absolute",
         top: "50px",
         left: "300px",
-        border: "1px solid white",
+        border: "1px solid black",
         backgroundColor: "white",
         padding: "15px",
         width: "400px",
       }}
     >
+      <Box sx={{display:"flex",  justifyContent:"space-between", width:"85%", margin:"auto"}}>
       <Typography sx={{ color: "black" }}>Add Expense</Typography>
-      <form style={{ width: "90%", margin: "auto" }} onSubmit={handleSubmit}>
+      <CloseIcon sx={{ color: "black" }}/>
+      </Box>
+      <form style={{ width: "95%", margin: "auto" }} onSubmit={handleSubmit}>
         {["date", "description", "category", "amount", "payment"].map(
           (field) => (
             <div key={field}>
-              <InputLabel required>
+              <InputLabel required sx={{textAlign:"left"}}>
                 {field.charAt(0).toUpperCase() + field.slice(1)}
               </InputLabel>
               <TextField
@@ -155,12 +159,12 @@ const AddExpense: React.FC = () => {
                 name={field}
                 value={expenseData[field as keyof ExpenseData]}
                 variant="outlined"
-                sx={{ marginBottom: "30px", width: "100% " }}
+                sx={{ marginBottom: "10px", width: "100% " }}
                 InputProps={{
                   sx: {
                     fontSize: { sm: "20px", md: "14px" },
                     width: "100%",
-                    height: { sm: "70px", md: "40px" },
+                    height: { sm: "70px", md: "32px" },
                     padding: "0",
                   },
                 }}
