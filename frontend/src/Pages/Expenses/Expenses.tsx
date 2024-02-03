@@ -42,6 +42,10 @@ const Expenses: React.FC = () => {
   const [expenseData, setExpenseData] = useState<Exptab[]>([]);
   // console.log(expenseData);
 
+  const addExpense = (newExpense:Exptab) => {
+    setExpenseData([newExpense, ...expenseData]);
+  };
+
   const popup = () => {
     setOpen(!open);
   };
@@ -303,7 +307,7 @@ const Expenses: React.FC = () => {
               }}
               variant="outlined"
             />
-            <Button variant="contained" sx={bttn} onClick={popup}>
+            <Button variant="contained" sx={bttn} onClick={popup} >
               Add Expense
             </Button>
 
@@ -392,7 +396,7 @@ const Expenses: React.FC = () => {
           </Box>
         </TableContainer>
 
-        {open ? <AddExpense/> : null}
+        {open ? <AddExpense /> : null}
         {edit ? <EditExpense/> : null}
       </Box>
     </>

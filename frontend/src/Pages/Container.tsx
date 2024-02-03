@@ -14,7 +14,8 @@ const Container = () => {
       sx={{
         display: "flex",
         width: "100%",
-        // height: "100vh",
+        height: "700px",
+        border:"5px solid yellow",
         backgroundColor: "#111111",
         color: "white",
         zIndex:"999"

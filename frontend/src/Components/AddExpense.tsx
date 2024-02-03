@@ -3,6 +3,7 @@ import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { API } from "../Constant/network";
 import CloseIcon from '@mui/icons-material/Close';
+import addImg from '../Images/ipad2.png'
 
 interface ExpenseData {
   date: string;
@@ -12,7 +13,7 @@ interface ExpenseData {
   payment: string;
 }
 
-const AddExpense: React.FC = () => {
+const AddExpense: React.FC = (addExpense) => {
   const initialExpenseData: ExpenseData = {
     date: "",
     description: "",
@@ -115,6 +116,11 @@ const AddExpense: React.FC = () => {
     }
   };
 
+  const imgBox={width:"49%",color:"black",
+  backgroundImage: 'linear-gradient(135deg, #7b6ceb 0, #d371be 100%)',
+  paddingTop:"20px"
+}
+
   return (
     <Box
       sx={{
@@ -123,19 +129,26 @@ const AddExpense: React.FC = () => {
         left: "300px",
         border: "1px solid black",
         backgroundColor: "white",
-        padding: "15px",
-        width: "400px",
+        marginTop:"20px",
+        width: "700px",
+        display:"flex",  
+        justifyContent:"space-between",
+        color:"white"
       }}
     >
-      <Box sx={{display:"flex",  justifyContent:"space-between", width:"85%", margin:"auto"}}>
-      <Typography sx={{ color: "black" }}>Add Expense</Typography>
-      <CloseIcon sx={{ color: "black" }}/>
+      <Box sx={imgBox}>
+       <img style={{width:"100%"}} src={addImg}/>
       </Box>
-      <form style={{ width: "95%", margin: "auto" }} onSubmit={handleSubmit}>
+      <Box sx={{width:"51%",padding: "10px", backgroundColor: "#111111", }}>
+      <Box sx={{display:"flex",  justifyContent:"space-between"}}>
+      <Typography sx={{ marginBottom:"10px",fontSize:"18px", fontWeight:"600", marginLeft:"10px" }}>Add Expense</Typography>
+      <CloseIcon />
+      </Box>
+      <form style={{ width: "95%", margin: "auto",color:"white" }} onSubmit={handleSubmit}>
         {["date", "description", "category", "amount", "payment"].map(
           (field) => (
             <div key={field}>
-              <InputLabel required sx={{textAlign:"left"}}>
+              <InputLabel required sx={{textAlign:"left", fontSize:"14px",color:"grey"}}>
                 {field.charAt(0).toUpperCase() + field.slice(1)}
               </InputLabel>
               <TextField
@@ -159,13 +172,17 @@ const AddExpense: React.FC = () => {
                 name={field}
                 value={expenseData[field as keyof ExpenseData]}
                 variant="outlined"
-                sx={{ marginBottom: "10px", width: "100% " }}
+                sx={{ marginBottom: "10px", width: "100% ",color:"white" }}
                 InputProps={{
                   sx: {
                     fontSize: { sm: "20px", md: "14px" },
                     width: "100%",
                     height: { sm: "70px", md: "32px" },
-                    padding: "0",
+                    padding: "0",color:"white",
+                    border:"1px solid grey",
+                    '&::-webkit-calendar-picker-indicator': {
+                      color: 'grey',
+                    }
                   },
                 }}
                 onChange={handleChange}
@@ -185,6 +202,7 @@ const AddExpense: React.FC = () => {
           Add Expense
         </Button>
       </form>
+      </Box>
     </Box>
   );
 };
