@@ -12,6 +12,7 @@ interface ExpenseData {
   payment: string;
 }
 
+
 const EditExpense: React.FC = () => {
   const initialExpenseData: ExpenseData = {
     date: "",

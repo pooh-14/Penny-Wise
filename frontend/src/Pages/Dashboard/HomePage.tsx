@@ -33,9 +33,9 @@ const HomePage: React.FC = () => {
       localStorage.getItem("userToken") || "null"
     );
     const headers = { Authorization: "Bearer " + token };
-    API.get(url, headers)?.subscribe({
+    API.get(url,{}, headers)?.subscribe({
       next(response: any) {
-        setMonthlyExp(response.totalCount);
+        setMonthlyExp(response.totalCount[0]);
         console.log(response, ": response");
         console.log(response.totalCount, ": response.data");
       },
@@ -133,7 +133,7 @@ const HomePage: React.FC = () => {
                       My Balance
                     </Typography>
                     <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
-                      $5000
+                      $0000
                     </Typography>
                   </Box>
                 </Box>
@@ -149,7 +149,7 @@ const HomePage: React.FC = () => {
                   <Box>
                     <Typography sx={{ fontSize: "15px" }}>Income</Typography>
                     <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
-                      $15000
+                      $00000
                     </Typography>
                   </Box>
                 </Box>
@@ -162,12 +162,14 @@ const HomePage: React.FC = () => {
                   <Box>
                     <PaidTwoToneIcon sx={expicon} />
                   </Box>
+                 
                   <Box>
-                    <Typography sx={{ fontSize: "15px" }}>Expenses</Typography>
-                    <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
-                      {/* {monthlyExp.totalAmount} */}
-                    </Typography>
-                  </Box>
+                  <Typography sx={{ fontSize: "15px" }}>Expenses</Typography>
+                  {monthlyExp ? 
+                  <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
+                    ${monthlyExp.totalAmount}
+                  </Typography>: null}
+                </Box>
                 </Box>
               </Paper>
             </Grid>
@@ -183,7 +185,7 @@ const HomePage: React.FC = () => {
                       Total Savings
                     </Typography>
                     <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
-                      $5000
+                      $0000
                     </Typography>
                   </Box>
                 </Box>

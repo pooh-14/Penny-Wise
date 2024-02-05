@@ -44,6 +44,7 @@ const Expenses: React.FC = () => {
 
   const addExpense = (newExpense:Exptab) => {
     setExpenseData([newExpense, ...expenseData]);
+    getExpData();
   };
 
   const popup = () => {
@@ -62,6 +63,7 @@ const Expenses: React.FC = () => {
     const headers = { Authorization: "Bearer " + token };
     API.get(url, expenseData, headers)?.subscribe({
       next(response: any) {
+        getExpData();
         console.log(response, ": response");
         setExpenseData(response.singleExpense);
         // console.log(response.singleExpense, ": response.singleExpense");
@@ -87,6 +89,7 @@ const Expenses: React.FC = () => {
     const headers = { Authorization: "Bearer " + token };
     API.deleteApi(url, expenseData, headers)?.subscribe({
       next(response: any) {
+        getExpData();
         setExpenseData(response.deletedExpense);
         console.log(response, ": response");
         // console.log(response.data, ": response.data");
@@ -396,7 +399,7 @@ const Expenses: React.FC = () => {
           </Box>
         </TableContainer>
 
-        {open ? <AddExpense /> : null}
+        {open ? <AddExpense/> : null}
         {edit ? <EditExpense/> : null}
       </Box>
     </>

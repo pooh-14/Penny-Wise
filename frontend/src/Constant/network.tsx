@@ -133,6 +133,8 @@ const get = (url: string, paramsObj: {}, headers?: {}, cancelToken?: any) => {
         : { params, headers };
       // console.log(_params, "_params-headers");
       // access data from the backend
+      console.log(url, "-url-network");
+      console.log(headers, "-headers-network");
       axios
         .get(url, _params)
         // gets data from the backend as reponse

@@ -19,10 +19,10 @@ exports.totalMonthlyExpense = asyncHandler(async (req, res, next) => {
     0
   );
 
-  console.log(currentUser, "-currentUser");
-  console.log(currentDate, "-currentDate");
-  console.log(firstDayOfMonth, "-firstDayOfMonth");
-  console.log(lastDayOfMonth, "-lastDayOfMonth");
+  // console.log(currentUser, "-currentUser");
+  // console.log(currentDate, "-currentDate");
+  // console.log(firstDayOfMonth, "-firstDayOfMonth");
+  // console.log(lastDayOfMonth, "-lastDayOfMonth");
 
   const totalCount = await Expense.aggregate([
     {

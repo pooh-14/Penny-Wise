@@ -36,7 +36,7 @@ exports.getExpense = asyncHandler(async (req, res, next) => {
   const { id } = req.user;
   const { date, description, category, amount, payment, skipNo, takeNo } =
     req.query;
-  console.log(req.user);
+  // console.log(req.user);
   const query = { userId: id };
   if (!skipNo) {
     return next(new ErrorResponse("Skip required!", 401));
@@ -60,8 +60,8 @@ exports.getExpense = asyncHandler(async (req, res, next) => {
     query["payment"] = payment;
   }
   const allExpense = await Expense.find(query).skip(skipNo).limit(takeNo);
-  console.log(query, "query");
-  console.log(allExpense, "allExpense");
+  // console.log(query, "query");
+  // console.log(allExpense, "allExpense");
   res.status(200).json({
     success: true,
     allExpense: allExpense,
