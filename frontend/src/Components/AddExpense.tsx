@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { API } from "../Constant/network";
-import CloseIcon from '@mui/icons-material/Close';
-import addImg from '../Images/ipad2.png'
+import CloseIcon from "@mui/icons-material/Close";
+import addImg from "../Images/ipad2.png";
 
 interface ExpenseData {
   date: string;
@@ -13,7 +13,11 @@ interface ExpenseData {
   payment: string;
 }
 
-const AddExpense: React.FC = (addExpense) => {
+interface getExpProp {
+  addexpense: () => void;
+}
+
+const AddExpense: React.FC = (props: getExpProp) => {
   const initialExpenseData: ExpenseData = {
     date: "",
     description: "",
@@ -70,20 +74,22 @@ const AddExpense: React.FC = (addExpense) => {
 
     if (isValid) {
       const url = "http://localhost:8000/api/v1/expense/expense";
-      const token: string | null = JSON.parse(localStorage.getItem("userToken") || 'null');
-      const headers = {Authorization: "Bearer " + token};
-    API.post(url,expenseData,headers)?.subscribe({
-      next(response: any) {
-        console.log(response, ": response");
-        console.log(response.data, ": response.data");
-      },
-      error(error) {
-        console.log(error);
-      },
-      complete() {
-        console.log("complete");
-      },
-    });
+      const token: string | null = JSON.parse(
+        localStorage.getItem("userToken") || "null"
+      );
+      const headers = { Authorization: "Bearer " + token };
+      API.post(url, expenseData, headers)?.subscribe({
+        next(response: any) {
+          console.log(response, ": response");
+          console.log(response.data, ": response.data");
+        },
+        error(error) {
+          console.log(error);
+        },
+        complete() {
+          console.log("complete");
+        },
+      });
       toast.success("Expense added Successfully!");
       setExpenseData(initialExpenseData);
     } else {
@@ -116,10 +122,12 @@ const AddExpense: React.FC = (addExpense) => {
     }
   };
 
-  const imgBox={width:"49%",color:"black",
-  backgroundImage: 'linear-gradient(135deg, #7b6ceb 0, #d371be 100%)',
-  paddingTop:"20px"
-}
+  const imgBox = {
+    width: "49%",
+    color: "black",
+    backgroundImage: "linear-gradient(135deg, #7b6ceb 0, #d371be 100%)",
+    paddingTop: "20px",
+  };
 
   return (
     <Box
@@ -129,79 +137,95 @@ const AddExpense: React.FC = (addExpense) => {
         left: "300px",
         border: "1px solid black",
         backgroundColor: "white",
-        marginTop:"20px",
+        marginTop: "20px",
         width: "700px",
-        display:"flex",  
-        justifyContent:"space-between",
-        color:"white"
+        display: "flex",
+        justifyContent: "space-between",
+        color: "white",
       }}
     >
       <Box sx={imgBox}>
-       <img style={{width:"100%"}} src={addImg}/>
+        <img style={{ width: "100%" }} src={addImg} />
       </Box>
-      <Box sx={{width:"51%",padding: "10px", backgroundColor: "#111111", }}>
-      <Box sx={{display:"flex",  justifyContent:"space-between"}}>
-      <Typography sx={{ marginBottom:"10px",fontSize:"18px", fontWeight:"600", marginLeft:"10px" }}>Add Expense</Typography>
-      <CloseIcon />
-      </Box>
-      <form style={{ width: "95%", margin: "auto",color:"white" }} onSubmit={handleSubmit}>
-        {["date", "description", "category", "amount", "payment"].map(
-          (field) => (
-            <div key={field}>
-              <InputLabel required sx={{textAlign:"left", fontSize:"14px",color:"grey"}}>
-                {field.charAt(0).toUpperCase() + field.slice(1)}
-              </InputLabel>
-              <TextField
-                onInput={() => validateField(field as keyof ExpenseData)}
-                onBlur={() => validateField(field as keyof ExpenseData)}
-                error={errors[field as keyof ExpenseData]}
-                helperText={
-                  errors[field as keyof ExpenseData]
-                    ? `${
-                        field.charAt(0).toUpperCase() + field.slice(1)
-                      } is required`
-                    : null
-                }
-                type={
-                  field === "amount"
-                    ? "number"
-                    : "text" && field === "date"
-                    ? "date"
-                    : "text"
-                }
-                name={field}
-                value={expenseData[field as keyof ExpenseData]}
-                variant="outlined"
-                sx={{ marginBottom: "10px", width: "100% ",color:"white" }}
-                InputProps={{
-                  sx: {
-                    fontSize: { sm: "20px", md: "14px" },
-                    width: "100%",
-                    height: { sm: "70px", md: "32px" },
-                    padding: "0",color:"white",
-                    border:"1px solid grey",
-                    '&::-webkit-calendar-picker-indicator': {
-                      color: 'grey',
-                    }
-                  },
-                }}
-                onChange={handleChange}
-              />
-            </div>
-          )
-        )}
-
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{
-            height: { sm: "50px", md: "35px" },
-            fontSize: { sm: "20px", md: "15px" },
-          }}
+      <Box sx={{ width: "51%", padding: "10px", backgroundColor: "#111111" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography
+            sx={{
+              marginBottom: "10px",
+              fontSize: "18px",
+              fontWeight: "600",
+              marginLeft: "10px",
+            }}
+          >
+            Add Expense
+          </Typography>
+          <CloseIcon />
+        </Box>
+        <form
+          style={{ width: "95%", margin: "auto", color: "white" }}
+          onSubmit={handleSubmit}
         >
-          Add Expense
-        </Button>
-      </form>
+          {["date", "description", "category", "amount", "payment"].map(
+            (field) => (
+              <div key={field}>
+                <InputLabel
+                  required
+                  sx={{ textAlign: "left", fontSize: "14px", color: "grey" }}
+                >
+                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                </InputLabel>
+                <TextField
+                  onInput={() => validateField(field as keyof ExpenseData)}
+                  onBlur={() => validateField(field as keyof ExpenseData)}
+                  error={errors[field as keyof ExpenseData]}
+                  helperText={
+                    errors[field as keyof ExpenseData]
+                      ? `${
+                          field.charAt(0).toUpperCase() + field.slice(1)
+                        } is required`
+                      : null
+                  }
+                  type={
+                    field === "amount"
+                      ? "number"
+                      : "text" && field === "date"
+                      ? "date"
+                      : "text"
+                  }
+                  name={field}
+                  value={expenseData[field as keyof ExpenseData]}
+                  variant="outlined"
+                  sx={{ marginBottom: "10px", width: "100% ", color: "white" }}
+                  InputProps={{
+                    sx: {
+                      fontSize: { sm: "20px", md: "14px" },
+                      width: "100%",
+                      height: { sm: "70px", md: "32px" },
+                      padding: "0",
+                      color: "white",
+                      border: "1px solid grey",
+                      "&::-webkit-calendar-picker-indicator": {
+                        color: "grey",
+                      },
+                    },
+                  }}
+                  onChange={handleChange}
+                />
+              </div>
+            )
+          )}
+
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{
+              height: { sm: "50px", md: "35px" },
+              fontSize: { sm: "20px", md: "15px" },
+            }}
+          >
+            Add Expense
+          </Button>
+        </form>
       </Box>
     </Box>
   );

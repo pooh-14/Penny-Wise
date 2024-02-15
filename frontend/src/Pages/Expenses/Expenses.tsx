@@ -399,7 +399,7 @@ const Expenses: React.FC = () => {
           </Box>
         </TableContainer>
 
-        {open ? <AddExpense/> : null}
+        {open ? <AddExpense addexpense={addExpense}/> : null}
         {edit ? <EditExpense/> : null}
       </Box>
     </>

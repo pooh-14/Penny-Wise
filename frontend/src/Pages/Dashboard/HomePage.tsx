@@ -25,7 +25,7 @@ interface expOfMonth {
 }
 
 const HomePage: React.FC = () => {
-  const [monthlyExp, setMonthlyExp] = useState<expOfMonth | null>(null);
+  const [monthlyExp, setMonthlyExp] = useState<expOfMonth| null>(null);
 
   const totalMonthlyExp = () => {
     const url = "http://localhost:8000/api/v1/statistics/statistics";
@@ -165,10 +165,10 @@ const HomePage: React.FC = () => {
                  
                   <Box>
                   <Typography sx={{ fontSize: "15px" }}>Expenses</Typography>
-                  {monthlyExp ? 
+                  {monthlyExp && 
                   <Typography sx={{ fontSize: "21px", marginTop: "5px" }}>
                     ${monthlyExp.totalAmount}
-                  </Typography>: null}
+                  </Typography>}
                 </Box>
                 </Box>
               </Paper>

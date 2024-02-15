@@ -25,10 +25,9 @@ exports.register = asyncHandler(async (req, res, next) => {
 // @access Public
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-
   // get User
   const user = await User.findOne({ email }).select("+password");
-
+  console.log("user :", user);
   // User not found
   if (!user) {
     return next(new ErrorResponse(`User not found with email ${email}`, 401));
